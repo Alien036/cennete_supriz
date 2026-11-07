@@ -118,5 +118,129 @@
       }
     ],
     "finalNote": ""
+  },
+  {
+    "createdAt": "2026-11-07T16:44:58.174Z",
+    "updatedAt": "2026-11-07T16:45:17.383Z",
+    "sessionId": "cennet_mw6mw91a_9bcmx",
+    "recipient": "Cennet",
+    "dominantVibe": "huzur",
+    "profileTitle": "Dinginliğin & Samimi Sohbetlerin Prensesi",
+    "profileBadge": "🌿 Huzur & Derinlik Frekansı",
+    "answers": [
+      {
+        "questionId": 1,
+        "category": "Güne Başlangıç & Keyif",
+        "questionText": "Günün en güzel molasında masanda hangisi olmalı, Prenses?",
+        "optionId": "coffee_lover",
+        "emoji": "🧋",
+        "label": "Bol köpüklü veya buzlu bir kahve",
+        "reaction": "Kahve kokusuyla başlayan ya da tazelenen bir günün enerjisi gerçekten bambaşka oluyor! ☕✨",
+        "vibeTag": "estetik",
+        "customNote": ""
+      },
+      {
+        "questionId": 2,
+        "category": "Hafta Sonu Modu",
+        "questionText": "Hiçbir sorumluluğun olmadığı ideal bir pazar günü nasıl geçmeli?",
+        "optionId": "nature_escape",
+        "emoji": "🌊",
+        "label": "Deniz kenarı, doğa yürüyüşü veya temiz hava kaçamağı",
+        "reaction": "Deniz havası veya yeşillik... Doğayla buluşunca parlayan bir ruhun var! 🌊✨",
+        "vibeTag": "huzur",
+        "customNote": ""
+      },
+      {
+        "questionId": 3,
+        "category": "Mevsim & Atmosfer",
+        "questionText": "Hangi hava ve atmosferde kendini çok daha 'sen' gibi hissedersin?",
+        "optionId": "summer_sunset",
+        "emoji": "🌅",
+        "label": "Uzun yaz akşamları ve altın saatler (Golden Hour)",
+        "reaction": "Gün batımının o kehribar ışığı ve bitmesini istemediğin tatlı yaz akşamları... Şahane! 🌅",
+        "vibeTag": "enerjik",
+        "customNote": ""
+      },
+      {
+        "questionId": 4,
+        "category": "Bu mu, Şu mu?",
+        "questionText": "Tatlı bir ikilem: Zamanın nasıl geçtiğini anlamadığın an hangisi?",
+        "optionId": "sunset_view",
+        "emoji": "🌇",
+        "label": "Güzel bir manzaraya karşı sessizliği bile paylaşabilmek",
+        "reaction": "Manzaraya karşı huzurlu bir anı paylaşabilmek, en zarif iletişim biçimlerinden biri! 🌇",
+        "vibeTag": "estetik",
+        "customNote": ""
+      },
+      {
+        "questionId": 5,
+        "category": "Küçük Mutluluklar",
+        "questionText": "Gün içinde modun biraz düştüğünde seni anında gülümsetecek detay nedir?",
+        "optionId": "music_walk",
+        "emoji": "🎧",
+        "label": "Kulaklığımı takıp sevdiğim şarkılarla biraz yürümek",
+        "reaction": "Müzik ve yürüyüş ikilisi, ruhu en hızlı tazeleyen terapi gibi! 🎧🌿",
+        "vibeTag": "huzur",
+        "customNote": ""
+      },
+      {
+        "questionId": 6,
+        "category": "Müzik & Frekans",
+        "questionText": "Uzun bir yolculukta DJ koltuğunu sana devretsek, listede ne çalar?",
+        "optionId": "pop_upbeat",
+        "emoji": "🎤",
+        "label": "Eşlik etmelik Türkçe/Yabancı Pop ve enerjik hitler",
+        "reaction": "Yol boyu enerjinin hiç düşmeyeceği, çok eğlenceli bir liste olacağı kesin! 🎤🌟",
+        "vibeTag": "enerjik",
+        "customNote": ""
+      },
+      {
+        "questionId": 7,
+        "category": "Tatlı Krizler",
+        "questionText": "Menüde tatlı sayfasına geldik... Gözün ilk hangisini arar?",
+        "optionId": "traditional_warm",
+        "emoji": "🍨",
+        "label": "Geleneksel lezzetler veya dondurmalı sıcak tatlılar",
+        "reaction": "Ağız tadını çok iyi bilen, gerçek bir lezzet gurmesi! 🍨💫",
+        "vibeTag": "huzur",
+        "customNote": ""
+      },
+      {
+        "questionId": 8,
+        "category": "Hayal Gücü & Sihir",
+        "questionText": "Bugün sana sihirli bir yetenek hediye edilse hangisini seçerdin?",
+        "optionId": "instant_mastery",
+        "emoji": "🎨",
+        "label": "Herhangi bir dili, enstrümanı veya sanatı anında öğrenmek",
+        "reaction": "Estetiğe, sanata ve gelişime meraklı, ilham verici bir zihin! 🎨✨",
+        "vibeTag": "estetik",
+        "customNote": ""
+      },
+      {
+        "questionId": 9,
+        "category": "İletişim & Samimiyet",
+        "questionText": "Bir insanda ya da arkadaşlıkta seni en çok etkileyen özellik hangisidir?",
+        "optionId": "attentive_listener",
+        "emoji": "🌿",
+        "label": "İyi bir dinleyici olması ve küçük detayları unutmaması",
+        "reaction": "Detayları hatırlamak ve gerçekten dinlemek, verilen değerin en güzel kanıtıdır 🌿",
+        "vibeTag": "huzur",
+        "customNote": ""
+      },
+      {
+        "questionId": 10,
+        "type": "open_ended",
+        "category": "Özel Soru",
+        "questionText": "Umut'un en çok hangi özelliğini beğeniyorsun? 🌷",
+        "openEndedText": "",
+        "emoji": "🌷",
+        "label": "Boş bırakıldı (Atlandı)",
+        "customNote": ""
+      }
+    ],
+    "finalNote": "",
+    "coffeeInviteStatus": "accepted",
+    "coffeeInviteLabel": "Kabul Etti! (\"Olur, neden olmasın! ❤️\")",
+    "coffeeRespondedAt": "2026-11-07T16:45:17.380Z"
   }
 ]

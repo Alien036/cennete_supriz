@@ -2,7 +2,8 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#FAF5F0" />
   <title>Admin Paneli • Cennet'in Yanıtları & Kahve Daveti 👑</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -217,6 +218,50 @@
       font-size: 2.6rem;
       margin-bottom: 0.75rem;
       display: inline-block;
+    }
+
+    @media (max-width: 600px) {
+      .admin-header-card,
+      .session-card {
+        padding: 1.3rem 1.05rem;
+      }
+
+      .admin-actions {
+        width: 100%;
+      }
+
+      .admin-actions .btn {
+        flex: 1;
+        min-height: 46px;
+      }
+
+      .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.65rem;
+      }
+
+      .kpi-box {
+        padding: 0.85rem 0.9rem;
+      }
+
+      .kpi-value {
+        font-size: 0.92rem;
+      }
+
+      .coffee-status-banner {
+        padding: 0.95rem 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.45rem;
+      }
+
+      .coffee-status-main {
+        font-size: 0.93rem;
+      }
+
+      .admin-answers-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>

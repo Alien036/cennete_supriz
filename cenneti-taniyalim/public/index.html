@@ -2,7 +2,10 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#FAF5F0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>Biraz da Seni Tanıyalım, Prenses ✨ | Cennet</title>
   <meta name="description" content="Cennet'i daha yakından tanımak için özel olarak tasarlanmış interaktif, zarif mini web deneyimi." />
   
@@ -233,19 +236,6 @@
           ></textarea>
         </div>
 
-        <!-- Paylaşım ve Kopyalama Aksiyonları -->
-        <div class="result-actions">
-          <button id="copy-summary-btn" class="btn btn-primary" type="button">
-            <span>📋 Cevaplarımı Kopyala (Paylaş)</span>
-          </button>
-          <button id="whatsapp-share-btn" class="btn btn-whatsapp" type="button">
-            <span>💬 WhatsApp ile Gönder</span>
-          </button>
-          <button id="restart-btn" class="btn btn-ghost" type="button">
-            <span>↺ Baştan Keşfet</span>
-          </button>
-        </div>
-
         <!-- Tüm Cevapların Zarif Özeti -->
         <div class="summary-section">
           <div class="summary-section-header">
@@ -255,6 +245,12 @@
           <div id="answers-summary-list" class="summary-list">
             <!-- JS ile doldurulur -->
           </div>
+        </div>
+
+        <div class="result-actions">
+          <button id="restart-btn" class="btn btn-ghost" type="button">
+            <span>↺ Baştan Keşfet</span>
+          </button>
         </div>
       </div>
     </section>

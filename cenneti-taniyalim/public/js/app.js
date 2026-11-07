@@ -524,6 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
       saveCurrentCustomNote();
       state.currentIndex -= 1;
       renderCurrentQuestion(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   });
 
@@ -539,25 +540,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (state.currentIndex < questions.length - 1) {
       state.currentIndex += 1;
       renderCurrentQuestion(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       showResults();
     }
-  });
-
-  copySummaryBtn.addEventListener('click', async () => {
-    const summaryText = buildShareableSummaryText();
-    try {
-      await navigator.clipboard.writeText(summaryText);
-      showToast('✨ Cevapların kopyalandı! İstediğin yere yapıştırabilirsin 🌸');
-    } catch (err) {
-      showToast('Metin hazırlandı!');
-    }
-  });
-
-  whatsappShareBtn.addEventListener('click', () => {
-    const summaryText = buildShareableSummaryText();
-    const url = `https://wa.me/?text=${encodeURIComponent(summaryText)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
   });
 
   // Son not yazıldığında Firebase'i güncelle (debounce ile)
