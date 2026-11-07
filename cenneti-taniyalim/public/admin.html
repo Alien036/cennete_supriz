@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Paneli • Cennet'in Yanıtları & Kahve Daveti 👑</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .admin-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
+      flex: 1;
+    }
+
+    .admin-header-card {
+      margin-bottom: 1.5rem;
+      padding: 2rem;
+    }
+
+    .admin-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .admin-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .admin-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .admin-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    /* Özet KPI Kartları */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.9rem;
+    }
+
+    .kpi-box {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+    }
+
+    .kpi-label {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .kpi-value {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Kahve Teklifi Durum Rozetleri */
+    .coffee-status-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      padding: 1.15rem 1.35rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 1.25rem;
+      font-weight: 600;
+    }
+
+    .status-accepted {
+      background: linear-gradient(135deg, #ECFDF3 0%, #D1FADF 100%);
+      border: 1.5px solid #32D583;
+      color: #027A48;
+    }
+
+    .status-declined {
+      background: linear-gradient(135deg, #FFF6ED 0%, #FFECD6 100%);
+      border: 1.5px solid #FDB022;
+      color: #B54708;
+    }
+
+    .status-opened {
+      background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+      border: 1.5px solid #7CD4FD;
+      color: #026AA2;
+    }
+
+    .status-pending {
+      background: #F9F6F8;
+      border: 1px dashed rgba(214, 116, 105, 0.35);
+      color: var(--text-secondary);
+    }
+
+    .coffee-status-main {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.02rem;
+    }
+
+    .coffee-status-icon {
+      font-size: 1.55rem;
+    }
+
+    .coffee-status-time {
+      font-size: 0.8rem;
+      opacity: 0.85;
+      font-weight: 500;
+    }
+
+    /* Oturum Kartları */
+    .session-card {
+      margin-bottom: 1.5rem;
+      padding: 1.85rem;
+    }
+
+    .session-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-bottom: 1.15rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid rgba(214, 116, 105, 0.16);
+    }
+
+    .session-meta-title {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .session-meta-sub {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+    }
+
+    .btn-delete-record {
+      background: rgba(214, 116, 105, 0.1);
+      color: var(--primary-rose-dark);
+      border: 1px solid rgba(214, 116, 105, 0.25);
+      padding: 0.45rem 0.9rem;
+      font-size: 0.8rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-delete-record:hover {
+      background: var(--primary-rose);
+      color: #FFFFFF;
+    }
+
+    .guest-final-note-box {
+      background: linear-gradient(135deg, #FFF9F5 0%, #FFFDFB 100%);
+      border: 1px solid rgba(200, 157, 102, 0.35);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .guest-final-note-box strong {
+      display: block;
+      font-size: 0.82rem;
+      color: #7D592B;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.3rem;
+    }
+
+    .guest-final-note-box p {
+      font-size: 0.96rem;
+      color: var(--text-main);
+      font-style: italic;
+    }
+
+    .admin-answers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .empty-state-box {
+      text-align: center;
+      padding: 3rem 1.5rem;
+    }
+
+    .empty-icon {
+      font-size: 2.6rem;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <header class="top-bar" style="max-width: 920px;">
+    <div class="brand-pill">
+      <span class="brand-crown">👑</span>
+      <span class="brand-text">Cennet • Admin & Sonuç Paneli</span>
+    </div>
+    <div class="step-pill" id="sync-badge">Canlı Bağlantı Aktif ✨</div>
+  </header>
+
+  <main class="admin-container">
+    <!-- Üst Özet Kartı -->
+    <section class="glass-card admin-header-card">
+      <div class="admin-top-row">
+        <div>
+          <h1 class="admin-title">Sonuçlar & Kahve Daveti Durumu</h1>
+          <p class="admin-subtitle">
+            Cennet'in verdiği tüm cevaplar ve kahve teklifine yanıtı Firebase üzerinden anlık olarak burada görüntülenir.
+          </p>
+        </div>
+        <div class="admin-actions">
+          <button id="refresh-btn" class="btn btn-secondary" type="button">
+            <span>↻ Yenile</span>
+          </button>
+          <a href="/" class="btn btn-primary">
+            <span>Siteye Git →</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-box">
+          <span class="kpi-label">Son Kahve Teklifi Yanıtı</span>
+          <div id="kpi-coffee-status" class="kpi-value">Bekleniyor...</div>
+        </div>
+        <div class="kpi-box">
+          <span class="kpi-label">Baskın Frekans Profili</span>
+          <div id="kpi-profile" class="kpi-value">—</div>
+        </div>
+        <div class="kpi-box">
+          <span class="kpi-label">Toplam Kayıtlı Oturum</span>
+          <div id="kpi-total" class="kpi-value">0</div>
+        </div>
+        <div class="kpi-box">
+          <span class="kpi-label">Son Etkileşim Zamanı</span>
+          <div id="kpi-time" class="kpi-value">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kayıtların Listelendiği Alan -->
+    <div id="admin-records-container">
+      <div class="glass-card empty-state-box">
+        <span class="empty-icon">🌸</span>
+        <h3 class="question-title" style="font-size: 1.5rem;">Veriler Yükleniyor...</h3>
+        <p class="question-subtitle">Firebase ve sunucu kayıtları kontrol ediliyor.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p>Cennet Özel Edisyon • Admin Kontrol Paneli ✨</p>
+  </footer>
+
+  <script type="module" src="/js/firebase-service.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('admin-records-container');
+      const kpiCoffee = document.getElementById('kpi-coffee-status');
+      const kpiProfile = document.getElementById('kpi-profile');
+      const kpiTotal = document.getElementById('kpi-total');
+      const kpiTime = document.getElementById('kpi-time');
+      const refreshBtn = document.getElementById('refresh-btn');
+
+      function formatDate(isoStr) {
+        if (!isoStr) return '—';
+        try {
+          const d = new Date(isoStr);
+          return d.toLocaleString('tr-TR', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+          });
+        } catch (e) {
+          return isoStr;
+        }
+      }
+
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function getCoffeeStatusConfig(record) {
+        const status = record.coffeeInviteStatus || 'pending';
+        if (status === 'accepted') {
+          return {
+            className: 'status-accepted',
+            icon: '❤️',
+            shortText: 'KABUL ETTİ! ☕❤️',
+            fullText: 'Kahve Teklifini Kabul Etti! — "Olur, neden olmasın! ❤️"'
+          };
+        }
+        if (status === 'declined' || status === 'thinking') {
+          return {
+            className: 'status-declined',
+            icon: '🌸',
+            shortText: 'Düşünmek İstedi 🌸',
+            fullText: 'Kahve Teklifi Yanıtı: "Biraz düşünmem lazım 🌸"'
+          };
+        }
+        if (status === 'opened') {
+          return {
+            className: 'status-opened',
+            icon: '👀',
+            shortText: 'Davet Ekranını Açtı 👀',
+            fullText: '"Birlikte bir kahve içelim mi?" butonuna bastı, ekranı inceliyor...'
+          };
+        }
+        return {
+          className: 'status-pending',
+          icon: '⏳',
+          shortText: 'Henüz Yanıtlamadı ⏳',
+          fullText: 'Henüz kahve daveti butonuna basmadı veya seçim yapmadı.'
+        };
+      }
+
+      function renderRecords(records) {
+        kpiTotal.textContent = String(records.length);
+
+        if (!records || records.length === 0) {
+          kpiCoffee.textContent = 'Henüz kayıt yok ⏳';
+          kpiProfile.textContent = '—';
+          kpiTime.textContent = '—';
+          container.innerHTML = `
+            <div class="glass-card empty-state-box">
+              <span class="empty-icon">🌷</span>
+              <h3 class="question-title" style="font-size: 1.6rem;">Henüz Tamamlanmış Bir Yanıt Yok</h3>
+              <p class="question-subtitle" style="margin-bottom: 1.2rem;">
+                Cennet soruları tamamladığında ve kahve teklifine yanıt verdiğinde tüm detaylar anında burada belirecek.
+              </p>
+              <a href="/" class="btn btn-primary">Test Etmek İçin Ana Sayfaya Git ✨</a>
+            </div>
+          `;
+          return;
+        }
+
+        const latest = records[0];
+        const latestCoffee = getCoffeeStatusConfig(latest);
+        kpiCoffee.textContent = latestCoffee.shortText;
+        kpiProfile.textContent = latest.profileBadge || latest.profileTitle || '—';
+        kpiTime.textContent = formatDate(latest.updatedAt || latest.createdAt);
+
+        container.innerHTML = '';
+
+        records.forEach((rec, index) => {
+          const coffeeCfg = getCoffeeStatusConfig(rec);
+          const card = document.createElement('section');
+          card.className = 'glass-card session-card';
+
+          const finalNoteHtml = rec.finalNote
+            ? `
+              <div class="guest-final-note-box">
+                <strong>💌 Cennet'in Bıraktığı Son Not</strong>
+                <p>"${escapeHtml(rec.finalNote)}"</p>
+              </div>
+            `
+            : '';
+
+          const answersList = Array.isArray(rec.answers) ? rec.answers : [];
+          const specialOpenEndedAns = answersList.find((a) => a && a.type === 'open_ended');
+          const specialQuestionBannerHtml =
+            specialOpenEndedAns && specialOpenEndedAns.openEndedText && specialOpenEndedAns.openEndedText.trim().length > 0
+              ? `
+                <div class="guest-final-note-box" style="border-color: rgba(214, 116, 105, 0.45); background: linear-gradient(135deg, #FFF5F2 0%, #FFFDFB 100%);">
+                  <strong style="color: var(--primary-rose-dark);">🌷 Özel Soru: "${escapeHtml(specialOpenEndedAns.questionText)}"</strong>
+                  <p style="font-style: normal; font-weight: 600; margin-top: 0.25rem; white-space: pre-wrap;">"${escapeHtml(specialOpenEndedAns.openEndedText.trim())}"</p>
+                </div>
+              `
+              : '';
+
+          const answersHtml = answersList
+            .map((ans, idx) => {
+              const notePart = ans.customNote
+                ? `<div class="summary-a-note">💬 Notu: "${escapeHtml(ans.customNote)}"</div>`
+                : '';
+              return `
+                <div class="summary-item">
+                  <div class="summary-q-cat">${idx + 1}. ${escapeHtml(ans.category || 'Soru')}</div>
+                  <div class="summary-q-title">${escapeHtml(ans.questionText || '')}</div>
+                  <div class="summary-a-choice">${escapeHtml(ans.emoji || '✨')} ${escapeHtml(ans.label || '')}</div>
+                  ${notePart}
+                </div>
+              `;
+            })
+            .join('');
+
+          const coffeeTimeText = rec.coffeeRespondedAt
+            ? `Yanıt Zamanı: ${formatDate(rec.coffeeRespondedAt)}`
+            : `Son Güncelleme: ${formatDate(rec.updatedAt || rec.createdAt)}`;
+
+          card.innerHTML = `
+            <div class="session-card-header">
+              <div>
+                <span class="hero-badge" style="margin-bottom: 0.35rem;">
+                  ${escapeHtml(rec.profileBadge || '✨ Frekans Analizi')}
+                </span>
+                <h2 class="session-meta-title">
+                  #${records.length - index} • ${escapeHtml(rec.profileTitle || 'Cennet\'in Yanıtları')}
+                </h2>
+                <div class="session-meta-sub">
+                  Oluşturulma: ${formatDate(rec.createdAt)} • Oturum: ${escapeHtml(rec.sessionId)}
+                </div>
+              </div>
+              <button class="btn-delete-record" data-id="${escapeHtml(rec.sessionId)}" type="button">
+                🗑️ Kaydı Sil
+              </button>
+            </div>
+
+            <!-- Kahve Teklifi Durum Kartı -->
+            <div class="coffee-status-banner ${coffeeCfg.className}">
+              <div class="coffee-status-main">
+                <span class="coffee-status-icon">${coffeeCfg.icon}</span>
+                <span>${coffeeCfg.fullText}</span>
+              </div>
+              <span class="coffee-status-time">${coffeeTimeText}</span>
+            </div>
+
+            ${specialQuestionBannerHtml}
+            ${finalNoteHtml}
+
+            <div class="summary-section-header" style="margin-bottom: 0.75rem;">
+              <h3 style="font-family: var(--font-serif); font-size: 1.3rem;">🌸 Verilen Cevaplar (${answersList.length} Soru)</h3>
+            </div>
+            <div class="admin-answers-grid">
+              ${answersHtml}
+            </div>
+          `;
+
+          const delBtn = card.querySelector('.btn-delete-record');
+          if (delBtn) {
+            delBtn.addEventListener('click', async () => {
+              const sid = delBtn.getAttribute('data-id');
+              if (window.FirebaseService) {
+                await window.FirebaseService.deleteResponseRecord(sid);
+                const updated = await window.FirebaseService.fetchAllResponses();
+                renderRecords(updated);
+              }
+            });
+          }
+
+          container.appendChild(card);
+        });
+      }
+
+      function initAdminConnection() {
+        if (window.FirebaseService && typeof window.FirebaseService.subscribeToResponses === 'function') {
+          window.FirebaseService.subscribeToResponses((records) => {
+            renderRecords(records);
+          });
+        } else {
+          setTimeout(initAdminConnection, 300);
+        }
+      }
+
+      refreshBtn.addEventListener('click', async () => {
+        if (window.FirebaseService) {
+          const list = await window.FirebaseService.fetchAllResponses();
+          renderRecords(list);
+        }
+      });
+
+      initAdminConnection();
+    });
+  </script>
+</body>
+</html>
+

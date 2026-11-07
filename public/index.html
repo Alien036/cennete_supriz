@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biraz da Seni Tanıyalım, Prenses ✨ | Cennet</title>
+  <meta name="description" content="Cennet'i daha yakından tanımak için özel olarak tasarlanmış interaktif, zarif mini web deneyimi." />
+  
+  <!-- Google Fonts: Zarif Serif (Cormorant Garamond) & Modern Sans (Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <!-- Arka Plan Atmosferik Işık Küreleri -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Kutlama Parıltı Canvas'ı -->
+  <canvas id="sparkle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Üst Butik Bar -->
+  <header class="top-bar">
+    <div class="brand-pill">
+      <span class="brand-crown">👑</span>
+      <span class="brand-text">Cennet • Özel Edisyon</span>
+    </div>
+    <div class="step-pill" id="header-status">Hoş Geldin ✨</div>
+  </header>
+
+  <!-- Ana İçerik Kapsayıcısı -->
+  <main class="app-container">
+    
+    <!-- 1. EKRAN: KARŞILAMA (WELCOME SCREEN) -->
+    <section id="welcome-screen" class="screen active">
+      <div class="glass-card hero-card">
+        <div class="hero-badge">
+          <span class="sparkle-dot"></span>
+          <span>SANA ÖZEL KÜÇÜK BİR KEŞİF</span>
+        </div>
+
+        <h1 class="hero-title">
+          Biraz da Seni Tanıyalım, <span class="highlight-serif">Prenses</span>
+        </h1>
+
+        <p class="hero-lead">
+          Merhaba <strong>Cennet</strong> 🌸 Bu küçük dijital köşe, sadece senin dünyanı,
+          seni gülümseten detayları ve sevdiğin şeyleri biraz daha yakından tanımak için
+          özenle hazırlandı.
+        </p>
+
+        <div class="feature-pills">
+          <div class="feature-item">
+            <span class="feature-icon">☕</span>
+            <div>
+              <strong>10 Keyifli Soru</strong>
+              <span>Kahveden müziğe, hayallerden küçük mutluluklara</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🕊️</span>
+            <div>
+              <strong>Sıfır Baskı, %100 Samimiyet</strong>
+              <span>Doğru ya da yanlış cevap yok; sadece senin zevklerin var</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✨</span>
+            <div>
+              <strong>Sana Özel Vibe Haritası</strong>
+              <span>Sonunda seçimlerine göre hazırlanan özel karakter kartın seni bekliyor</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <button id="start-btn" class="btn btn-primary">
+            <span>Keşfe Başlayalım</span>
+            <span class="btn-arrow">✨</span>
+          </button>
+          <button id="peek-btn" class="btn btn-ghost">
+            <span>Zor sorular var mı acaba? 🤔</span>
+          </button>
+        </div>
+
+        <div id="reassurance-box" class="reassurance-box hidden">
+          <p>
+            <strong>İpucu:</strong> Hiç merak etme! Matematik, tarih ya da sıkıcı mülakat soruları
+            kesinlikle yok 😄 Sadece <em>"Kahve mi çay mı?"</em>, <em>"İdeal pazar günün nasıl geçer?"</em>
+            gibi tamamen keyifli seçimler var. Hazırsan başlayalım! 🌷
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. EKRAN: SORU AKIŞI (QUIZ SCREEN) -->
+    <section id="quiz-screen" class="screen">
+      <div class="glass-card quiz-card">
+        <!-- İlerleme Çubuğu ve Kategori Başlığı -->
+        <div class="quiz-header">
+          <div class="quiz-meta">
+            <span id="question-category" class="category-badge">☕ Güne Başlangıç</span>
+            <span id="question-counter" class="counter-text">1 / 10</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1">
+            <div id="progress-fill" class="progress-fill" style="width: 10%;"></div>
+          </div>
+        </div>
+
+        <!-- Soru İçeriği -->
+        <div id="question-stage" class="question-stage">
+          <!-- Özel Soru İçin Yüzen Zarif Süslemeler -->
+          <div id="special-question-aura" class="special-question-aura hidden" aria-hidden="true">
+            <span class="floating-petal petal-1">🌷</span>
+            <span class="floating-petal petal-2">✨</span>
+            <span class="floating-petal petal-3">🌸</span>
+          </div>
+
+          <h2 id="question-title" class="question-title">Soru yükleniyor...</h2>
+          <p id="question-subtitle" class="question-subtitle"></p>
+
+          <!-- Seçenekler Listesi (Çoktan seçmeli sorular için) -->
+          <div id="options-container" class="options-grid" role="radiogroup" aria-label="Soru Seçenekleri">
+            <!-- JS ile dinamik oluşturulur -->
+          </div>
+
+          <!-- Açık Uçlu Özel Soru Alanı (Son soru için) -->
+          <div id="open-ended-container" class="open-ended-container hidden">
+            <div class="open-ended-frame">
+              <textarea
+                id="open-ended-textarea"
+                class="open-ended-textarea"
+                rows="5"
+                placeholder="Aklından geçenleri merak ediyorum... 💭"
+              ></textarea>
+              <div class="open-ended-footer-hint">
+                <span class="hint-sparkle">🌷</span>
+                <span>İçinden geldiği gibi özgürce yazabilir ya da dilersen boş bırakıp geçebilirsin.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Seçim Sonrası Tatlı Tepki Kutusu -->
+          <div id="reaction-banner" class="reaction-banner hidden" aria-live="polite">
+            <span class="reaction-sparkle">✨</span>
+            <p id="reaction-text"></p>
+          </div>
+
+          <!-- Opsiyonel Kişisel Not Alanı (Çoktan seçmeli sorular için) -->
+          <div id="custom-note-wrapper" class="custom-note-wrapper">
+            <label for="custom-note-input" class="custom-note-label">
+              <span>💬 Eklemek istediğin küçük bir detay veya kendi cevabın var mı?</span>
+              <span class="optional-tag">(İsteğe bağlı)</span>
+            </label>
+            <input
+              type="text"
+              id="custom-note-input"
+              class="custom-note-input"
+              placeholder="İçinden geçen küçük bir detayı buraya bırakabilirsin..."
+              maxlength="180"
+            />
+          </div>
+        </div>
+
+        <!-- Alt Navigasyon -->
+        <div class="quiz-footer">
+          <button id="prev-btn" class="btn btn-secondary" type="button">
+            <span>← Önceki</span>
+          </button>
+          <button id="next-btn" class="btn btn-primary" type="button" disabled>
+            <span id="next-btn-label">Devam Et</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. EKRAN: SONUÇ VE CENNET'İN VIBE KARTI (RESULT SCREEN) -->
+    <section id="result-screen" class="screen">
+      <div class="glass-card result-card">
+        <div class="result-header">
+          <span class="result-crown">👑</span>
+          <div id="profile-badge" class="hero-badge">✨ ÖZEL FREKANS ANALİZİ</div>
+          <h2 id="profile-title" class="result-title">Zarif Detayların Prensesi</h2>
+          <p class="result-subtitle">
+            Zaman ayırıp bu küçük yolculuğa katıldığın için çok teşekkürler, <strong>Cennet</strong> 🌸
+            İşte seçimlerinden yansıyan senin özel enerjin:
+          </p>
+        </div>
+
+        <!-- Karakter & Vibe Özeti -->
+        <div class="vibe-showcase">
+          <p id="profile-description" class="vibe-description"></p>
+          <div id="profile-highlights" class="trait-chips">
+            <!-- JS ile dinamik etiketler -->
+          </div>
+          <div class="ideal-plan-box">
+            <span class="plan-icon">🌷</span>
+            <div>
+              <strong>Sana En Yakışan Keyif Planı</strong>
+              <p id="profile-plan"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- YENİ BÖLÜM: "Peki ya beni? 🌷" -->
+        <div class="about-me-invite">
+          <div class="about-me-sparkle" aria-hidden="true">✨</div>
+          <h3 class="about-me-title">Peki ya beni? 🌷</h3>
+          <p class="about-me-text">
+            Şimdiye kadar seni tanımaya çalıştım. Ama biraz da beni tanıma vakti gelmedi mi?
+          </p>
+          <button id="open-coffee-screen-btn" class="btn btn-coffee-cta" type="button">
+            <span>Birlikte bir kahve içelim mi? ☕</span>
+          </button>
+        </div>
+
+        <!-- Son Bir Mesaj Bırakma Kutusu -->
+        <div class="final-message-box">
+          <label for="final-guest-note" class="final-message-label">
+            💌 Son olarak buraya bırakmak istediğin bir not, şarkı önerisi ya da tebessüm var mı, Prenses?
+          </label>
+          <textarea
+            id="final-guest-note"
+            class="final-textarea"
+            rows="2"
+            placeholder="Örn: Test çok tatlıydı! Şu şarkıyı da mutlaka dinlemelisin..."
+          ></textarea>
+        </div>
+
+        <!-- Paylaşım ve Kopyalama Aksiyonları -->
+        <div class="result-actions">
+          <button id="copy-summary-btn" class="btn btn-primary" type="button">
+            <span>📋 Cevaplarımı Kopyala (Paylaş)</span>
+          </button>
+          <button id="whatsapp-share-btn" class="btn btn-whatsapp" type="button">
+            <span>💬 WhatsApp ile Gönder</span>
+          </button>
+          <button id="restart-btn" class="btn btn-ghost" type="button">
+            <span>↺ Baştan Keşfet</span>
+          </button>
+        </div>
+
+        <!-- Tüm Cevapların Zarif Özeti -->
+        <div class="summary-section">
+          <div class="summary-section-header">
+            <h3>🌸 Cennet'in Seçimleri</h3>
+            <span>10 Soruluk Küçük Portre</span>
+          </div>
+          <div id="answers-summary-list" class="summary-list">
+            <!-- JS ile doldurulur -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. EKRAN: KAHVE DAVETİ (COFFEE INVITE SCREEN) -->
+    <section id="coffee-screen" class="screen">
+      <div class="glass-card coffee-card">
+        <div class="coffee-emblem" aria-hidden="true">☕</div>
+        <div class="hero-badge">
+          <span class="sparkle-dot"></span>
+          <span>SAMİMİ BİR DAVET</span>
+        </div>
+
+        <h2 class="coffee-screen-title">
+          Bu sefer soruları yüz yüze soralım mı? ❤️
+        </h2>
+
+        <p class="coffee-screen-lead">
+          Bir kahve, biraz sohbet ve birbirimizi daha yakından tanımak için güzel bir fırsat.
+        </p>
+
+        <div class="coffee-choices" role="radiogroup" aria-label="Kahve Daveti Seçenekleri">
+          <button id="coffee-yes-btn" class="coffee-choice-btn coffee-choice-yes" type="button">
+            <span class="choice-text">Olur, neden olmasın! ❤️</span>
+          </button>
+          <button id="coffee-think-btn" class="coffee-choice-btn coffee-choice-think" type="button">
+            <span class="choice-text">Biraz düşünmem lazım 🌸</span>
+          </button>
+        </div>
+
+        <!-- Seçime Göre Beliren Zarif Yanıt Kutusu -->
+        <div id="coffee-response-box" class="coffee-response-box hidden" aria-live="polite">
+          <span id="coffee-response-icon" class="coffee-response-icon">☕</span>
+          <p id="coffee-response-text" class="coffee-response-text"></p>
+        </div>
+
+        <div class="coffee-footer">
+          <button id="back-to-results-btn" class="btn btn-ghost" type="button">
+            <span>← Sonuç Ekranına Dön</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Alt Bilgi -->
+  <footer class="app-footer">
+    <p>Cennet için incelikle tasarlandı • <span class="footer-heart">✨</span></p>
+  </footer>
+
+  <!-- Bildirim (Toast) -->
+  <div id="toast" class="toast hidden" role="status" aria-live="polite">
+    <span id="toast-message">Kopyalandı!</span>
+  </div>
+
+  <!-- Firebase ve Uygulama Scriptleri -->
+  <script type="module" src="/js/firebase-service.js"></script>
+  <script src="/js/questions.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
+

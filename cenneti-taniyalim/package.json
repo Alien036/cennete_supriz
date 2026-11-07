@@ -1,0 +1,23 @@
+{
+  "name": "cenneti-taniyalim",
+  "version": "1.0.0",
+  "description": "Biraz da Seni Tanıyalım, Prenses - Cennet için özel tasarlanmış interaktif mini web deneyimi",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "cennet",
+    "interactive",
+    "quiz",
+    "express",
+    "vanilla-js"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
+

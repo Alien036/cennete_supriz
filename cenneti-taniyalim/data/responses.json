@@ -1,0 +1,122 @@
+[
+  {
+    "id": "mw6lgr1b",
+    "submittedAt": "2026-11-07T16:04:55.391Z",
+    "recipient": "Cennet",
+    "dominantVibe": "estetik",
+    "profileTitle": "Zarif Detayların & İnceliğin Prensesi",
+    "answers": [
+      {
+        "questionId": 1,
+        "category": "Güne Başlangıç & Keyif",
+        "questionText": "Günün en güzel molasında masanda hangisi olmalı, Prenses?",
+        "optionId": "coffee_lover",
+        "emoji": "🧋",
+        "label": "Bol köpüklü veya buzlu bir kahve",
+        "reaction": "Kahve kokusuyla başlayan ya da tazelenen bir günün enerjisi gerçekten bambaşka oluyor! ☕✨",
+        "vibeTag": "estetik",
+        "customNote": ""
+      },
+      {
+        "questionId": 2,
+        "category": "Hafta Sonu Modu",
+        "questionText": "Hiçbir sorumluluğun olmadığı ideal bir pazar günü nasıl geçmeli?",
+        "optionId": "cozy_home",
+        "emoji": "🛋️",
+        "label": "Evde miskinlik, güzel bir dizi/film ve rahat kıyafetler",
+        "reaction": "Kendi alanında huzurla dinlenmek gibisi yok; tam bir 'kaliteli zaman' uzmanı! 🕯️",
+        "vibeTag": "huzur",
+        "customNote": ""
+      },
+      {
+        "questionId": 3,
+        "category": "Mevsim & Atmosfer",
+        "questionText": "Hangi hava ve atmosferde kendini çok daha 'sen' gibi hissedersin?",
+        "optionId": "autumn_rain",
+        "emoji": "🌧️",
+        "label": "Sonbahar, hafif yağmur sesi ve toprak kokusu",
+        "reaction": "Cama vuran yağmur sesi ve toprak kokusu... Duygusal derinliği olan insanların favorisi! 🍂🌧️",
+        "vibeTag": "huzur",
+        "customNote": ""
+      },
+      {
+        "questionId": 4,
+        "category": "Bu mu, Şu mu?",
+        "questionText": "Tatlı bir ikilem: Zamanın nasıl geçtiğini anlamadığın an hangisi?",
+        "optionId": "night_talks",
+        "emoji": "🌙",
+        "label": "Gece yarısı uzayıp giden derin ve samimi sohbetler",
+        "reaction": "Gece sessizliğinde kurulan samimi cümlelerin büyüsü gerçekten unutulmaz oluyor! 🌙💫",
+        "vibeTag": "huzur",
+        "customNote": ""
+      },
+      {
+        "questionId": 5,
+        "category": "Küçük Mutluluklar",
+        "questionText": "Gün içinde modun biraz düştüğünde seni anında gülümsetecek detay nedir?",
+        "optionId": "thoughtful_gesture",
+        "emoji": "💌",
+        "label": "Beklenmedik anda gelen tatlı bir mesaj veya ince düşünce",
+        "reaction": "İnce düşünülmüş küçük detayların değerini bilen zarif bir kalp! 💌✨",
+        "vibeTag": "estetik",
+        "customNote": ""
+      },
+      {
+        "questionId": 6,
+        "category": "Müzik & Frekans",
+        "questionText": "Uzun bir yolculukta DJ koltuğunu sana devretsek, listede ne çalar?",
+        "optionId": "eclectic_mix",
+        "emoji": "🔀",
+        "label": "Tamamen o anki moduma göre karışık bir sürpriz liste",
+        "reaction": "Tek bir kalıba sığmayan, rengarenk bir müzik listesi! En güzeli de bu 🔀🎶",
+        "vibeTag": "kesifci",
+        "customNote": ""
+      },
+      {
+        "questionId": 7,
+        "category": "Tatlı Krizler",
+        "questionText": "Menüde tatlı sayfasına geldik... Gözün ilk hangisini arar?",
+        "optionId": "chocolate_dream",
+        "emoji": "🍫",
+        "label": "Yoğun çikolatalı bir tatlı (Sufle, Brownie, Profiterol)",
+        "reaction": "Klasik ama vazgeçilmez! Akışkan bir çikolataya hayır demek imkansız 🍫✨",
+        "vibeTag": "enerjik",
+        "customNote": ""
+      },
+      {
+        "questionId": 8,
+        "category": "Hayal Gücü & Sihir",
+        "questionText": "Bugün sana sihirli bir yetenek hediye edilse hangisini seçerdin?",
+        "optionId": "teleportation",
+        "emoji": "🌍",
+        "label": "Gözümü kapatıp istediğim ülkeye/şehre ışınlanmak",
+        "reaction": "Sabah Paris'te kahve, akşam İtalya'da yürüyüş... Tam bir gezgin ruh! 🌍✨",
+        "vibeTag": "kesifci",
+        "customNote": ""
+      },
+      {
+        "questionId": 9,
+        "category": "İletişim & Samimiyet",
+        "questionText": "Bir insanda ya da arkadaşlıkta seni en çok etkileyen özellik hangisidir?",
+        "optionId": "genuine_respect",
+        "emoji": "🤍",
+        "label": "Saygı, nezaket ve insanın sınırlarına özen gösterilmesi",
+        "reaction": "Kesinlikle! Zarafet ve saygı, en güzel iletişimin temel taşıdır 🤍✨",
+        "vibeTag": "estetik",
+        "customNote": ""
+      },
+      {
+        "questionId": 10,
+        "category": "Prenses'in İmzası",
+        "questionText": "Son olarak Cennet; seni tek bir cümleyle özetleyecek 'altın kuralın' hangisi?",
+        "optionId": "curious_soul",
+        "emoji": "🧭",
+        "label": "'Her yeni gün, keşfedilecek yeni bir hikaye demektir.'",
+        "reaction": "Merakı ve keşif heyecanı hiç bitmeyen, ilham dolu bir imza! 🧭✨",
+        "vibeTag": "kesifci",
+        "customNote": ""
+      }
+    ],
+    "finalNote": ""
+  }
+]
