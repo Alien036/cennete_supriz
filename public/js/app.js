@@ -27,8 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const screens = {
     welcome: document.getElementById('welcome-screen'),
     quiz: document.getElementById('quiz-screen'),
-    result: document.getElementById('result-screen'),
-    coffee: document.getElementById('coffee-screen')
+    result: document.getElementById('result-screen')
   };
 
   const headerStatus = document.getElementById('header-status');
@@ -166,6 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (customNoteWrapper) customNoteWrapper.classList.remove('hidden');
       if (openEndedContainer) openEndedContainer.classList.add('hidden');
 
+      if (q.isCoffeeQuestion && state.coffeeInviteStatus === 'pending') {
+        state.coffeeInviteStatus = 'opened';
+        state.coffeeInviteLabel = 'Kahve daveti sorusunu görüntülüyor 👀☕';
+        syncSessionToFirebase();
+      }
+
       customNoteInput.placeholder =
         q.customNotePlaceholder || 'Eklemek istediğin küçük bir detay varsa buraya yazabilirsin...';
       customNoteInput.value = savedAnswer.customNote || '';
@@ -250,6 +255,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tatlı tepki mesajını göster
     reactionText.textContent = option.reaction;
     reactionBanner.classList.remove('hidden');
+
+    // Kahve daveti sorusuysa durumu anında güncelle ve Firebase'e kaydet
+    if (question.isCoffeeQuestion && option.coffeeStatus) {
+      state.coffeeInviteStatus = option.coffeeStatus;
+      state.coffeeInviteLabel =
+        option.coffeeStatus === 'accepted'
+          ? 'Kabul Etti! ("Olur, neden olmasın! ❤️")'
+          : 'Düşünmek İstedi ("Biraz düşünmem lazım 🌸")';
+      state.coffeeRespondedAt = new Date().toISOString();
+      if (option.coffeeStatus === 'accepted') {
+        launchCelebrationSparkles();
+      }
+      syncSessionToFirebase();
+    }
 
     // İleri butonunu aktif et
     nextBtn.disabled = false;

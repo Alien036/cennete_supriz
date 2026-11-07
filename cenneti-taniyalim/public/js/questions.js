@@ -402,6 +402,35 @@ window.QUESTIONS = [
     subtitle: "İçinden geldiği gibi, dilediğin kadar özgürce yazabilirsin...",
     placeholder: "Aklından geçenleri merak ediyorum... 💭",
     options: []
+  },
+  {
+    id: 11,
+    isSpecialQuestion: true,
+    isCoffeeQuestion: true,
+    category: "Peki ya beni? 🌷",
+    badgeIcon: "☕",
+    question: "Bu sefer soruları yüz yüze soralım mı? Birlikte bir kahve içelim mi? ❤️",
+    subtitle:
+      "Şimdiye kadar seni tanımaya çalıştım. Ama biraz da beni tanıma vakti gelmedi mi? Bir kahve, biraz sohbet ve birbirimizi daha yakından tanımak için güzel bir fırsat.",
+    customNotePlaceholder: "Kahve veya buluşma için eklemek istediğin bir not varsa buraya yazabilirsin... ☕",
+    options: [
+      {
+        id: "coffee_yes",
+        emoji: "❤️",
+        label: "Olur, neden olmasın! ❤️",
+        detail: "Bir kahve ve samimi bir sohbet harika olur.",
+        reaction: "Harika! O zaman buluşma planını birlikte yapalım. ☕",
+        coffeeStatus: "accepted"
+      },
+      {
+        id: "coffee_think",
+        emoji: "🌸",
+        label: "Biraz düşünmem lazım 🌸",
+        detail: "Şimdilik biraz zaman tanıyalım.",
+        reaction: "Hiç sorun değil, acelemiz yok. 🌷",
+        coffeeStatus: "declined"
+      }
+    ]
   }
 ];
 
