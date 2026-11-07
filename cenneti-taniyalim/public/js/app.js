@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const screens = {
     welcome: document.getElementById('welcome-screen'),
     quiz: document.getElementById('quiz-screen'),
-    result: document.getElementById('result-screen')
+    result: document.getElementById('result-screen'),
+    coffee: document.getElementById('coffee-screen')
   };
 
   const headerStatus = document.getElementById('header-status');
@@ -62,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const profileHighlights = document.getElementById('profile-highlights');
   const profilePlan = document.getElementById('profile-plan');
   const finalGuestNote = document.getElementById('final-guest-note');
+  const saveFinalNoteBtn = document.getElementById('save-final-note-btn');
   const answersSummaryList = document.getElementById('answers-summary-list');
   const copySummaryBtn = document.getElementById('copy-summary-btn');
   const whatsappShareBtn = document.getElementById('whatsapp-share-btn');
@@ -85,8 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
    * Ekranlar arası yumuşak geçiş
    */
   function switchScreen(targetKey) {
-    Object.values(screens).forEach((el) => el.classList.remove('active'));
-    screens[targetKey].classList.add('active');
+    Object.values(screens).forEach((el) => {
+      if (el) el.classList.remove('active');
+    });
+    if (screens[targetKey]) {
+      screens[targetKey].classList.add('active');
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -238,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
       emoji: option.emoji,
       label: option.label,
       reaction: option.reaction,
-      vibeTag: option.vibeTag,
+      vibeTag: option.vibeTag || null,
       customNote: existingNote
     };
 
@@ -256,22 +262,89 @@ document.addEventListener('DOMContentLoaded', () => {
     reactionText.textContent = option.reaction;
     reactionBanner.classList.remove('hidden');
 
-    // Kahve daveti sorusuysa durumu anında güncelle ve Firebase'e kaydet
+    // Kahve daveti sorusuysa durumu anında güncelle ve Firebase'e kesin olarak kaydet
     if (question.isCoffeeQuestion && option.coffeeStatus) {
-      state.coffeeInviteStatus = option.coffeeStatus;
-      state.coffeeInviteLabel =
-        option.coffeeStatus === 'accepted'
-          ? 'Kabul Etti! ("Olur, neden olmasın! ❤️")'
-          : 'Düşünmek İstedi ("Biraz düşünmem lazım 🌸")';
-      state.coffeeRespondedAt = new Date().toISOString();
-      if (option.coffeeStatus === 'accepted') {
-        launchCelebrationSparkles();
-      }
-      syncSessionToFirebase();
+      applyCoffeeChoiceAndSync(option.coffeeStatus);
     }
 
     // İleri butonunu aktif et
     nextBtn.disabled = false;
+  }
+
+  /**
+   * Kahve daveti Evet ('accepted') veya Hayır/Düşün ('declined') seçimini
+   * hem state'e hem de Firebase Firestore'daki mevcut sessionId dökümanına kaydeder.
+   */
+  function applyCoffeeChoiceAndSync(status) {
+    const nowIso = new Date().toISOString();
+    const isAccepted = status === 'accepted';
+
+    state.coffeeInviteStatus = isAccepted ? 'accepted' : 'declined';
+    state.coffeeInviteLabel = isAccepted
+      ? 'Kabul Etti! ("Olur, neden olmasın! ❤️")'
+      : 'Düşünmek İstedi ("Biraz düşünmem lazım 🌸")';
+    state.coffeeRespondedAt = nowIso;
+
+    // 11. soru cevabını da senkronize tut
+    const coffeeQuestion = questions.find((q) => q.isCoffeeQuestion);
+    if (coffeeQuestion) {
+      const matchedOpt = coffeeQuestion.options.find((o) => o.coffeeStatus === state.coffeeInviteStatus);
+      if (matchedOpt) {
+        const prevNote = (state.answers[coffeeQuestion.id] && state.answers[coffeeQuestion.id].customNote) || '';
+        state.answers[coffeeQuestion.id] = {
+          questionId: coffeeQuestion.id,
+          category: coffeeQuestion.category,
+          questionText: coffeeQuestion.question,
+          optionId: matchedOpt.id,
+          emoji: matchedOpt.emoji,
+          label: matchedOpt.label,
+          reaction: matchedOpt.reaction,
+          vibeTag: null,
+          customNote: prevNote
+        };
+      }
+    }
+
+    // Kahve ekranındaki butonların görünümünü de güncelle
+    if (coffeeYesBtn && coffeeThinkBtn && coffeeResponseBox) {
+      coffeeYesBtn.classList.toggle('selected', isAccepted);
+      coffeeThinkBtn.classList.toggle('selected', !isAccepted);
+      coffeeResponseIcon.textContent = isAccepted ? '☕' : '🌷';
+      coffeeResponseText.textContent = isAccepted
+        ? 'Harika! O zaman buluşma planını birlikte yapalım. ☕'
+        : 'Hiç sorun değil, acelemiz yok. 🌷';
+      coffeeResponseBox.classList.remove('hidden');
+    }
+
+    if (isAccepted) {
+      launchCelebrationSparkles();
+    }
+
+    const orderedAnswers = questions
+      .map((q) => state.answers[q.id])
+      .filter(Boolean);
+
+    const currentFinalNote = finalGuestNote ? finalGuestNote.value.trim() : '';
+
+    // 1. Doğrudan mevcut sessionId dökümanının üzerine merge:true ile yaz
+    const pushCoffeeUpdate = () => {
+      if (window.FirebaseService && typeof window.FirebaseService.updateCoffeeChoice === 'function') {
+        window.FirebaseService.updateCoffeeChoice(state.sessionId, {
+          coffeeInviteStatus: state.coffeeInviteStatus,
+          coffeeInviteLabel: state.coffeeInviteLabel,
+          coffeeRespondedAt: state.coffeeRespondedAt,
+          finalNote: currentFinalNote,
+          answers: orderedAnswers
+        });
+      }
+      syncSessionToFirebase();
+    };
+
+    if (window.FirebaseService) {
+      pushCoffeeUpdate();
+    } else {
+      setTimeout(pushCoffeeUpdate, 500);
+    }
   }
 
   /**
@@ -565,14 +638,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Son not yazıldığında Firebase'i güncelle (debounce ile)
+  // Son not (finalNote) yazıldığında veya kaydedildiğinde Firebase'i güncelle
   let noteSyncTimer = null;
+  function pushFinalNoteToFirebase() {
+    if (!finalGuestNote) return;
+    const noteVal = finalGuestNote.value.trim();
+    if (window.FirebaseService && typeof window.FirebaseService.updateFinalNote === 'function') {
+      window.FirebaseService.updateFinalNote(state.sessionId, noteVal);
+    }
+    syncSessionToFirebase();
+  }
+
   if (finalGuestNote) {
     finalGuestNote.addEventListener('input', () => {
       if (noteSyncTimer) clearTimeout(noteSyncTimer);
       noteSyncTimer = setTimeout(() => {
-        syncSessionToFirebase();
-      }, 600);
+        pushFinalNoteToFirebase();
+      }, 450);
+    });
+    finalGuestNote.addEventListener('blur', () => {
+      pushFinalNoteToFirebase();
+    });
+    finalGuestNote.addEventListener('change', () => {
+      pushFinalNoteToFirebase();
+    });
+  }
+
+  if (saveFinalNoteBtn) {
+    saveFinalNoteBtn.addEventListener('click', () => {
+      pushFinalNoteToFirebase();
+      showToast('💌 Notun kaydedildi, teşekkürler Prenses! 🌸');
     });
   }
 
@@ -580,6 +675,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (openCoffeeScreenBtn) {
     openCoffeeScreenBtn.addEventListener('click', () => {
       headerStatus.textContent = 'Özel Davet ☕';
+      pushFinalNoteToFirebase();
       if (state.coffeeInviteStatus === 'pending') {
         state.coffeeInviteStatus = 'opened';
         state.coffeeInviteLabel = 'Kahve davet ekranını açtı 👀☕';
@@ -589,37 +685,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Kahve Daveti Seçenekleri (Firebase'e anlık kaydedilir)
+  // Kahve Daveti Seçenekleri (Mevcut sessionId dökümanının üzerine merge:true ile yazar)
   if (coffeeYesBtn) {
     coffeeYesBtn.addEventListener('click', () => {
-      coffeeYesBtn.classList.add('selected');
-      coffeeThinkBtn.classList.remove('selected');
-      coffeeResponseIcon.textContent = '☕';
-      coffeeResponseText.textContent =
-        'Harika! O zaman buluşma planını birlikte yapalım. ☕';
-      coffeeResponseBox.classList.remove('hidden');
-
-      state.coffeeInviteStatus = 'accepted';
-      state.coffeeInviteLabel = 'Kabul Etti! ("Olur, neden olmasın! ❤️")';
-      state.coffeeRespondedAt = new Date().toISOString();
-      syncSessionToFirebase();
-
-      launchCelebrationSparkles();
+      applyCoffeeChoiceAndSync('accepted');
     });
   }
 
   if (coffeeThinkBtn) {
     coffeeThinkBtn.addEventListener('click', () => {
-      coffeeThinkBtn.classList.add('selected');
-      coffeeYesBtn.classList.remove('selected');
-      coffeeResponseIcon.textContent = '🌷';
-      coffeeResponseText.textContent = 'Hiç sorun değil, acelemiz yok. 🌷';
-      coffeeResponseBox.classList.remove('hidden');
-
-      state.coffeeInviteStatus = 'declined';
-      state.coffeeInviteLabel = 'Düşünmek İstedi ("Biraz düşünmem lazım 🌸")';
-      state.coffeeRespondedAt = new Date().toISOString();
-      syncSessionToFirebase();
+      applyCoffeeChoiceAndSync('declined');
     });
   }
 

@@ -219,6 +219,18 @@
           </div>
         </div>
 
+        <!-- "Peki ya beni? 🌷" Bölümü -->
+        <div class="about-me-invite">
+          <div class="about-me-sparkle" aria-hidden="true">✨</div>
+          <h3 class="about-me-title">Peki ya beni? 🌷</h3>
+          <p class="about-me-text">
+            Şimdiye kadar seni tanımaya çalıştım. Ama biraz da beni tanıma vakti gelmedi mi?
+          </p>
+          <button id="open-coffee-screen-btn" class="btn btn-coffee-cta" type="button">
+            <span>Birlikte bir kahve içelim mi? ☕</span>
+          </button>
+        </div>
+
         <!-- Son Bir Mesaj Bırakma Kutusu -->
         <div class="final-message-box">
           <label for="final-guest-note" class="final-message-label">
@@ -230,6 +242,11 @@
             rows="2"
             placeholder="Örn: Test çok tatlıydı! Şu şarkıyı da mutlaka dinlemelisin..."
           ></textarea>
+          <div style="margin-top: 0.65rem; display: flex; justify-content: flex-end;">
+            <button id="save-final-note-btn" class="btn btn-secondary" type="button" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;">
+              <span>💌 Notumu Kaydet</span>
+            </button>
+          </div>
         </div>
 
         <!-- Tüm Cevapların Zarif Özeti -->
@@ -246,6 +263,46 @@
         <div class="result-actions">
           <button id="restart-btn" class="btn btn-ghost" type="button">
             <span>↺ Baştan Keşfet</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. EKRAN: KAHVE DAVETİ (COFFEE INVITE SCREEN) -->
+    <section id="coffee-screen" class="screen">
+      <div class="glass-card coffee-card">
+        <div class="coffee-emblem" aria-hidden="true">☕</div>
+        <div class="hero-badge">
+          <span class="sparkle-dot"></span>
+          <span>SAMİMİ BİR DAVET</span>
+        </div>
+
+        <h2 class="coffee-screen-title">
+          Bu sefer soruları yüz yüze soralım mı? ❤️
+        </h2>
+
+        <p class="coffee-screen-lead">
+          Bir kahve, biraz sohbet ve birbirimizi daha yakından tanımak için güzel bir fırsat.
+        </p>
+
+        <div class="coffee-choices" role="radiogroup" aria-label="Kahve Daveti Seçenekleri">
+          <button id="coffee-yes-btn" class="coffee-choice-btn coffee-choice-yes" type="button">
+            <span class="choice-text">Olur, neden olmasın! ❤️</span>
+          </button>
+          <button id="coffee-think-btn" class="coffee-choice-btn coffee-choice-think" type="button">
+            <span class="choice-text">Biraz düşünmem lazım 🌸</span>
+          </button>
+        </div>
+
+        <!-- Seçime Göre Beliren Zarif Yanıt Kutusu -->
+        <div id="coffee-response-box" class="coffee-response-box hidden" aria-live="polite">
+          <span id="coffee-response-icon" class="coffee-response-icon">☕</span>
+          <p id="coffee-response-text" class="coffee-response-text"></p>
+        </div>
+
+        <div class="coffee-footer">
+          <button id="back-to-results-btn" class="btn btn-ghost" type="button">
+            <span>← Sonuç Ekranına Dön</span>
           </button>
         </div>
       </div>

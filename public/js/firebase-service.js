@@ -26,44 +26,112 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Analytics (tarayıcı destekliyorsa başlat)
-isSupported().then((yes) => {
-  if (yes) {
-    getAnalytics(app);
-  }
-}).catch(() => {});
+isSupported()
+  .then((yes) => {
+    if (yes) {
+      getAnalytics(app);
+    }
+  })
+  .catch(() => {});
 
 const db = getFirestore(app);
 const COLLECTION_NAME = "cennet_responses";
 
 /**
- * Sonuçları ve kahve teklifi durumunu hem Firebase Firestore'a
+ * Firestore'un reddettiği `undefined` alanları temizler
+ */
+function sanitizeForFirestore(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+/**
+ * Tüm oturum verisini ve cevapları hem Firebase Firestore'a
  * hem de yerel sunucu yedeğine (/api/responses) kaydeder.
  */
 async function saveSessionData(sessionData) {
   if (!sessionData || !sessionData.sessionId) return;
 
-  const payload = {
+  const nowIso = new Date().toISOString();
+  const payload = sanitizeForFirestore({
     ...sessionData,
-    updatedAt: new Date().toISOString()
-  };
+    updatedAt: nowIso
+  });
 
-  // 1. Yerel API yedeğine kaydet (her koşulda çalışması için)
+  const docRef = doc(db, COLLECTION_NAME, payload.sessionId);
+
+  // 1. Firebase Firestore'a kesin olarak kaydet (merge: true)
+  const firebasePromise = setDoc(docRef, payload, { merge: true }).catch((err) => {
+    console.error("Firebase Firestore saveSessionData hatası:", err);
+  });
+
+  // 2. Yerel API yedeğine kaydet
   const localPromise = fetch("/api/responses", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
   }).catch(() => {});
 
-  // 2. Firebase Firestore'a kaydet
-  const firebasePromise = setDoc(
-    doc(db, COLLECTION_NAME, payload.sessionId),
-    payload,
-    { merge: true }
-  ).catch((err) => {
-    console.warn("Firebase Firestore kayıt uyarısı:", err.message);
+  await Promise.allSettled([firebasePromise, localPromise]);
+}
+
+/**
+ * Kahve daveti Evet / Hayır seçimini mevcut sessionId dökümanının üzerine kesin olarak yazar
+ */
+async function updateCoffeeChoice(sessionId, { coffeeInviteStatus, coffeeInviteLabel, coffeeRespondedAt, finalNote, answers }) {
+  if (!sessionId) return;
+
+  const nowIso = new Date().toISOString();
+  const updateData = sanitizeForFirestore({
+    sessionId,
+    coffeeInviteStatus,
+    coffeeInviteLabel,
+    coffeeRespondedAt: coffeeRespondedAt || nowIso,
+    updatedAt: nowIso,
+    ...(finalNote !== undefined ? { finalNote } : {}),
+    ...(Array.isArray(answers) ? { answers } : {})
   });
 
-  await Promise.allSettled([localPromise, firebasePromise]);
+  const docRef = doc(db, COLLECTION_NAME, sessionId);
+
+  const firebasePromise = setDoc(docRef, updateData, { merge: true }).catch((err) => {
+    console.error("Firebase Firestore updateCoffeeChoice hatası:", err);
+  });
+
+  const localPromise = fetch("/api/responses", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updateData)
+  }).catch(() => {});
+
+  await Promise.allSettled([firebasePromise, localPromise]);
+}
+
+/**
+ * Son not (finalNote) alanını mevcut sessionId dökümanında günceller
+ */
+async function updateFinalNote(sessionId, finalNote) {
+  if (!sessionId) return;
+
+  const nowIso = new Date().toISOString();
+  const updateData = sanitizeForFirestore({
+    sessionId,
+    finalNote: String(finalNote || "").trim(),
+    updatedAt: nowIso
+  });
+
+  const docRef = doc(db, COLLECTION_NAME, sessionId);
+
+  const firebasePromise = setDoc(docRef, updateData, { merge: true }).catch((err) => {
+    console.error("Firebase Firestore updateFinalNote hatası:", err);
+  });
+
+  const localPromise = fetch("/api/responses", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updateData)
+  }).catch(() => {});
+
+  await Promise.allSettled([firebasePromise, localPromise]);
 }
 
 /**
@@ -92,8 +160,14 @@ async function fetchAllResponses() {
     const snap = await getDocs(collection(db, COLLECTION_NAME));
     snap.forEach((docSnap) => {
       const data = docSnap.data();
-      if (data && data.sessionId) {
-        mergedMap.set(data.sessionId, { ...mergedMap.get(data.sessionId), ...data, syncedWithFirebase: true });
+      const sid = (data && data.sessionId) || docSnap.id;
+      if (sid) {
+        mergedMap.set(sid, {
+          ...mergedMap.get(sid),
+          ...data,
+          sessionId: sid,
+          syncedWithFirebase: true
+        });
       }
     });
   } catch (err) {
@@ -116,7 +190,6 @@ function subscribeToResponses(onUpdate) {
         fetchAllResponses().then(onUpdate);
       },
       () => {
-        // Firestore kuralları veya bağlantı hatası olursa yerel veriyi yükle
         fetchAllResponses().then(onUpdate);
       }
     );
@@ -142,8 +215,9 @@ async function deleteResponseRecord(sessionId) {
 // Global erişim için window nesnesine bağla
 window.FirebaseService = {
   saveSessionData,
+  updateCoffeeChoice,
+  updateFinalNote,
   fetchAllResponses,
   subscribeToResponses,
   deleteResponseRecord
 };
-
