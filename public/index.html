@@ -8,6 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>Biraz da Seni Tanıyalım, Prenses ✨ | Cennet</title>
   <meta name="description" content="Cennet'i daha yakından tanımak için özel olarak tasarlanmış interaktif, zarif mini web deneyimi." />
+  <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  <link rel="apple-touch-icon" href="/logo.svg" />
   
   <!-- Google Fonts: Zarif Serif (Cormorant Garamond) & Modern Sans (Plus Jakarta Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,7 +32,7 @@
   <!-- Üst Butik Bar -->
   <header class="top-bar">
     <div class="brand-pill">
-      <span class="brand-crown">👑</span>
+      <img src="/logo.svg" alt="Kalp Logo" class="brand-logo" />
       <span class="brand-text">Cennet • Özel Edisyon</span>
     </div>
     <div class="step-pill" id="header-status">Hoş Geldin ✨</div>
@@ -42,6 +44,10 @@
     <!-- 1. EKRAN: KARŞILAMA (WELCOME SCREEN) -->
     <section id="welcome-screen" class="screen active">
       <div class="glass-card hero-card">
+        <div class="hero-logo-wrap">
+          <img src="/logo.svg" alt="Biraz da Seni Tanıyalım Prenses Kalp Logosu" class="hero-heart-logo" />
+        </div>
+
         <div class="hero-badge">
           <span class="sparkle-dot"></span>
           <span>SANA ÖZEL KÜÇÜK BİR KEŞİF</span>
@@ -187,7 +193,9 @@
     <section id="result-screen" class="screen">
       <div class="glass-card result-card">
         <div class="result-header">
-          <span class="result-crown">👑</span>
+          <div class="hero-logo-wrap">
+            <img src="/logo.svg" alt="Prenses Kalp Logosu" class="hero-heart-logo" />
+          </div>
           <div id="profile-badge" class="hero-badge">✨ ÖZEL FREKANS ANALİZİ</div>
           <h2 id="profile-title" class="result-title">Zarif Detayların Prensesi</h2>
           <p class="result-subtitle">

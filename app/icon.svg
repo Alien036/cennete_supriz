@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <!-- Arka Plan Yumuşak Hale -->
+    <radialGradient id="auraGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F6D5CE" stop-opacity="0.75" />
+      <stop offset="70%" stop-color="#F9E5D8" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#FAF5F0" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Ana Kalp Gül Kurusu & Mercan Gradyanı -->
+    <linearGradient id="heartGrad" x1="20" y1="24" x2="98" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F0988C" />
+      <stop offset="50%" stop-color="#D67469" />
+      <stop offset="100%" stop-color="#B55046" />
+    </linearGradient>
+
+    <!-- Kalp İç Parlama Gradyanı -->
+    <linearGradient id="innerShine" x1="35" y1="30" x2="75" y2="85" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Şampanya Altını Taç & Parıltı Gradyanı -->
+    <linearGradient id="goldGrad" x1="36" y1="12" x2="84" y2="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F3D6A4" />
+      <stop offset="50%" stop-color="#D4AF7A" />
+      <stop offset="100%" stop-color="#B6894E" />
+    </linearGradient>
+
+    <filter id="softShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#9E473E" flood-opacity="0.24" />
+    </filter>
+  </defs>
+
+  <!-- Yumuşak Arka Plan Dairesi -->
+  <circle cx="60" cy="62" r="54" fill="url(#auraGrad)" />
+  <circle cx="60" cy="62" r="46" stroke="url(#goldGrad)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.55" />
+
+  <!-- Zarif Prenses Tacı (Kalbin Üzerinde) -->
+  <path
+    d="M42 33L47 20L60 29L73 20L78 33H42Z"
+    fill="url(#goldGrad)"
+    stroke="#FFF9F5"
+    stroke-width="1.2"
+    stroke-linejoin="round"
+  />
+  <circle cx="47" cy="17.5" r="2.2" fill="url(#goldGrad)" />
+  <circle cx="60" cy="15" r="2.8" fill="url(#goldGrad)" />
+  <circle cx="73" cy="17.5" r="2.2" fill="url(#goldGrad)" />
+
+  <!-- Ana Kalp Formu -->
+  <g filter="url(#softShadow)">
+    <path
+      d="M60 98C60 98 24 75.2 24 49.5C24 37.4 33.4 28 45.2 28C52.1 28 57.3 31.5 60 36.2C62.7 31.5 67.9 28 74.8 28C86.6 28 96 37.4 96 49.5C96 75.2 60 98 60 98Z"
+      fill="url(#heartGrad)"
+    />
+    <!-- Kalp Sol Üst İpek Yansıması -->
+    <path
+      d="M45.5 33.5C37.2 33.5 30.5 40.2 30.5 48.8C30.5 53.5 32.8 58.6 36.5 63.5C34.2 58.5 34.5 51.2 38.5 45.5C42.2 40.2 48.2 37.8 53.2 37.5C51 35 48.4 33.5 45.5 33.5Z"
+      fill="url(#innerShine)"
+    />
+  </g>
+
+  <!-- Kalp İçindeki Zarif İnce Altın Kalp Çizgisi -->
+  <path
+    d="M60 89.5C60 89.5 31.5 70.2 31.5 50C31.5 41.2 38.4 34.2 46.8 34.2C52.4 34.2 57.2 37.3 60 41.8C62.8 37.3 67.6 34.2 73.2 34.2C81.6 34.2 88.5 41.2 88.5 50C88.5 70.2 60 89.5 60 89.5Z"
+    stroke="#FFF9F5"
+    stroke-width="1.2"
+    stroke-opacity="0.45"
+    fill="none"
+  />
+
+  <!-- Küçük Parıltı Yıldızları -->
+  <path
+    d="M95 27L96.8 31.2L101 33L96.8 34.8L95 39L93.2 34.8L89 33L93.2 31.2L95 27Z"
+    fill="url(#goldGrad)"
+  />
+  <path
+    d="M24 31L25.3 34.2L28.5 35.5L25.3 36.8L24 40L22.7 36.8L19.5 35.5L22.7 34.2L24 31Z"
+    fill="url(#goldGrad)"
+  />
+  <path
+    d="M60 54L61.6 58.4L66 60L61.6 61.6L60 66L58.4 61.6L54 60L58.4 58.4L60 54Z"
+    fill="#FFF9F5"
+    opacity="0.85"
+  />
+</svg>

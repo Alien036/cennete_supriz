@@ -163,6 +163,39 @@ body {
   font-size: 1rem;
 }
 
+.brand-logo {
+  width: 26px;
+  height: 26px;
+  display: block;
+  object-fit: contain;
+  animation: heartLogoPulse 3.2s ease-in-out infinite;
+}
+
+.hero-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.65rem;
+}
+
+.hero-heart-logo {
+  width: 78px;
+  height: 78px;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(214, 116, 105, 0.22));
+  animation: heartLogoPulse 3.2s ease-in-out infinite;
+}
+
+@keyframes heartLogoPulse {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.06);
+  }
+}
+
 .step-pill {
   font-size: 0.82rem;
   font-weight: 600;
